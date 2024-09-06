@@ -1,0 +1,30 @@
+<div>
+  <div class="flex flex-col gap-4 items-center relative">
+    <img
+      [src]="product.image"
+      alt="image of product"
+      class="max-h-48"
+      [ngClass]="{
+        'rounded-lg': true,
+        'w-full': true,
+      }"
+    />
+
+    <div
+      class="flex justify-between items-center gap-8 absolute -bottom-6 bg-red rounded-full py-2 px-2"
+    ></div>
+
+    <div
+      class="flex gap-4 absolute -bottom-6 bg-white border border-rose_400 rounded-full py-2 px-8"
+      (click)="onClick(product)"
+    >
+      <img src="assets/images/icon-add-to-cart.svg" alt="cart icon" />
+      <h1 class="text-preset4 text-rose_900">Add to Cart</h1>
+    </div>
+  </div>
+  <div class="my-8">
+    <h1 class="text-rose_400 text-preset4">{{ product.category }}</h1>
+    <h1 class="text-rose_900 text-preset3">{{ product.title }}</h1>
+    <h1 class="text-preset3 text-red">${{ product.price }}</h1>
+  </div>
+</div>

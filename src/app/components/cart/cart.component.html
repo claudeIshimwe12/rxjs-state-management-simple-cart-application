@@ -1,0 +1,72 @@
+<div class="lg:min-w-[384px] my-8">
+  <div class="bg-white rounded-md w-full px-4 py-8 lg:p-8">
+    <h1 class="text-red text-preset2">
+      Your Cart ({{ numberOfProducts | async }})
+    </h1>
+    @if ((cart$ | async)?.length == 0) {
+    <img
+      src="assets/images/illustration-empty-cart.svg"
+      alt="empty cart"
+      class="mx-auto"
+    />
+    <h1 class="text-rose_500 text-preset4 text-center">
+      Your added items will appear here
+    </h1>
+    } @for (product of cart$ | async; track $index) {
+    <div
+      class="flex justify-between items-center border-b-2 border-rose_50 py-2"
+    >
+      <div>
+        <h1 class="text-rose_900 text-preset4">{{ product.product.title }}</h1>
+        <div class="flex justify-between mt-4">
+          <h1 class="text-red text-preset4">{{ product.quantity }}x</h1>
+          <h2 class="text-rose_500 text-preset4">
+            &#64; ${{ product.product.price }}
+          </h2>
+          <h3 class="text-rose_500 text-preset4">
+            ${{ product.quantity * product.product.price }}
+          </h3>
+        </div>
+      </div>
+      <img
+        src="assets/images/x-circle.svg"
+        class="cursor-pointer hover:scale-110 transition-transform duration-200"
+        alt="remove item icon"
+        (click)="removeItem(product)"
+      />
+    </div>
+    } @if ((cart$ | async)?.length !== 0) {
+    <div class="flex justify-between items-center">
+      <h1 class="text-rose_900 text-preset4">Order Total</h1>
+      <h1 class="text-rose_900 text-preset2 font-bold">
+        {{ totalPrice$ | async | currency : "USD" : true : "1.2-2" }}
+      </h1>
+    </div>
+    <div
+      class="flex justify-between bg-rose_50 py-4 px-4 md:px-8 my-8 rounded-lg"
+    >
+      <img
+        src="assets/images/icon-carbon-neutral.svg"
+        alt="carbon neutral delivery"
+      />
+      <h1 class="text-rose_900 text-sm">
+        This is a <span class="font-bold">carbon-neutral</span> delivery
+      </h1>
+    </div>
+    <div class="flex justify-between gap-4">
+      <button
+        class="w-full bg-red px-4 py-2 text-white rounded-full text-preset4 font-bold hover:bg-white hover:border hover:text-rose_500 hover:border-red transition delay-300 ease-in-out"
+        (click)="confirmOrder()"
+      >
+        Confirm Order
+      </button>
+      <button
+        class="w-full bg-black px-4 py-2 text-white rounded-full text-preset4 font-bold hover:bg-white hover:border hover:text-rose_500 hover:border-black transition delay-300 ease-in-out"
+        (click)="emptyCart()"
+      >
+        Empty Cart
+      </button>
+    </div>
+    }
+  </div>
+</div>

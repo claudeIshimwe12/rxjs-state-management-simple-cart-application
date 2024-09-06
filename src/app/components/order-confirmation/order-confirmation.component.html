@@ -1,0 +1,55 @@
+<div
+  class="md:mx-auto bg-white w-full md:w-11/12 lg:w-1/3 p-6 md:p-8 z-50 rounded-xl min-h-full lg:min-h-[300px] transition-all delay-1000"
+>
+  <img src="assets/images/icon-order-confirmed.svg" alt="order confirm icon" />
+  <h1 class="text-rose_900 text-preset3 font-bold lg:text-preset2">
+    Order Confirmed
+  </h1>
+  <p class="text-rose_500 text-lg">We hope you enjoy your food!</p>
+
+  <!-------- Cart Items          -->
+  <div
+    class="overflow-scroll max-h-[240px] md:max-h-[486px] lg:max-h-[240px] hide-scroll-bar"
+  >
+    @for (product of cart$ | async; track $index) {
+    <div
+      class="flex justify-between items-center border-b-2 border-rose_50 py-2"
+    >
+      <div class="flex gap-4">
+        <!--            product image -->
+        <img
+          [src]="product.product.image"
+          class="w-[48px] h-[48px] rounded-lg"
+          alt="product thumbnail"
+        />
+        <div>
+          <h1 class="text-rose_900 text-preset4">
+            {{ product.product.title }}
+          </h1>
+          <div class="flex justify-between mt-1">
+            <h1 class="text-red text-preset4">{{ product.quantity }}x</h1>
+            <h2 class="text-rose_500 text-preset4">
+              &#64; ${{ product.product.price }}
+            </h2>
+          </div>
+        </div>
+      </div>
+      <h3 class="text-rose_500 text-preset4">
+        ${{ product.quantity * product.product.price }}
+      </h3>
+    </div>
+    } @if ((cart$ | async)?.length !== 0) {
+    <div class="flex justify-between items-center">
+      <h1 class="text-rose_900 text-preset4">Order Total</h1>
+      <h1 class="text-rose_900 text-preset2">$ {{ totalPrice$ | async }}</h1>
+    </div>
+
+    }
+  </div>
+  <button
+    class="w-full bg-red px-4 py-2 text-white rounded-full text-preset3 font-bold mt-4 focus:outline-none hover:bg-white hover:border hover:text-rose_500 hover:border-red transition delay-300 ease-in-out"
+    (click)="onStartNewOrder()"
+  >
+    Start New Order
+  </button>
+</div>
