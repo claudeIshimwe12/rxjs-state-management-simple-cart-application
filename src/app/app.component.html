@@ -5,6 +5,13 @@
     >
       <div>
         <h1 class="text-preset1 text-rose_900">Products</h1>
+        <div *ngIf="products$ | async as products">
+          @if (products.length == 0) {
+          <h1 class="text-preset3 my-8 text-rose_500">
+            Oops!, Something went wrong while getting products 😒
+          </h1>
+          }
+        </div>
 
         <div
           class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 lg:gap-8"

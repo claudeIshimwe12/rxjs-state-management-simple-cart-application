@@ -12,10 +12,8 @@ import { CartService } from './services/cart.service';
 export class AppComponent implements OnInit {
   products$!: Observable<Product[]>;
   isOrderConfirmed: boolean = false;
-  constructor(
-    private products: ProductsService,
-    private cartService: CartService
-  ) {}
+
+  constructor(private products: ProductsService) {}
 
   ngOnInit(): void {
     this.products$ = this.products.getProducts();
